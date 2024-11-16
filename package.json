@@ -1,0 +1,17 @@
+{ 
+  "semantic_release": { 
+    "remote": { 
+      "type": "gitlab"
+    },
+    "tag_format": "v{version}",
+    "changelog": {
+      "default_templates": { "changelog_file": "CHANGELOG.md" }
+    },
+    "branches": {
+      "main": {
+        "match": "(main|master|add-semrelease)",
+        "prerelease": "false"
+      }
+    }
+  }
+}

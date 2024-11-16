@@ -28,9 +28,12 @@ jobs:
           echo "Deploying..."
           export SSH_REMOTE_SUDO_COMMAND="ssh -i ~/.ssh/id_rsa yurivlasov@${SSH_REMOTE_HOST} sudo -u root"
           echo "Deploing to remote host SSH_REMOTE_SUDO_COMMAND=${SSH_REMOTE_SUDO_COMMAND}..."
-          ${SSH_REMOTE_SUDO_COMMAND} docker login -u "gitlab-ci-token" -p "${PROJECT_DEPLOY_TOKEN}" ${CI_REGISTRY}
+          ${SSH_REMOTE_SUDO_COMMAND} docker login -u "gitlab-ci-token" -p "${DOCKER_REGISTRY_PASS}" ${CI_REGISTRY}
           ${SSH_REMOTE_SUDO_COMMAND} docker pull $CI_REGISTRY_IMAGE:github-version
           ${SSH_REMOTE_SUDO_COMMAND} docker stop gitlab-demo
           ${SSH_REMOTE_SUDO_COMMAND} docker run -d --rm --name gitlab-demo -p 8080:8080 -e APP_VER=${{ github.ref_name }} ${CI_REGISTRY_IMAGE}:github-version
         env:
           SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          DOCKER_REGISTRY_PASS: ${{ secrets.DOCKER_REGISTRY_PASS }}
+          CI_REGISTRY: "registry.gitlab.com/yvlasov/"
+          CI_REGISTRY_IMAGE: "registry.gitlab.com/yvlasov/01-demo"

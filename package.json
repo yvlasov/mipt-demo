@@ -2,7 +2,7 @@
   "semantic_release": { 
     "remote": {
       "type": "github",
-      "token": { "env": "CUSTOM_GH_TOKEN" }
+      "token": { "env": "GH_TOKEN" }
     },
     "tag_format": "v{version}",
     "changelog": {

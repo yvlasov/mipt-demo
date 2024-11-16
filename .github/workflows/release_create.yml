@@ -2,10 +2,10 @@ name: Manual Production Release
 
 on:
   workflow_dispatch:
-    #inputs:
-    #  release_version:
-    #    description: 'Release version'
-    #    required: true
+    # inputs:
+    #   release_version:
+    #     description: 'Release version'
+    #     required: true
 
 jobs:
   release:
@@ -28,12 +28,11 @@ jobs:
           python3 -m pip install -q --upgrade pip
           pip install -q python-semantic-release
           echo "Checking out the branch MAIN..."
-          git checkout main
           git fetch --tags
           git fetch --all
           echo "Releasing a new version..."
           set -x
-          semantic-release --config package.json version --skip-build
+          semantic-release --config package.json -vv version --skip-build
           RELEASED_TAG=$(semantic-release --config package.json  version --print-last-released-tag)
           echo "RELEASED_TAG=${RELEASED_TAG}"
           set +x

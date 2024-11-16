@@ -1,0 +1,43 @@
+name: Manual Production Release
+
+on:
+  workflow_dispatch:
+    #inputs:
+    #  release_version:
+    #    description: 'Release version'
+    #    required: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Create Release
+        run: |
+          echo "Installing semantic-release..."
+          python3 -m pip install -q --upgrade pip
+          pip install -q python-semantic-release
+          echo "Checking out the branch MAIN..."
+          git checkout main
+          git fetch --tags
+          git fetch --all
+          echo "Releasing a new version..."
+          set -x
+          semantic-release --config package.json version --skip-build
+          RELEASED_TAG=$(semantic-release --config package.json  version --print-last-released-tag)
+          echo "RELEASED_TAG=${RELEASED_TAG}"
+          set +x
+          echo "RELEASED_TAG=${RELEASED_TAG}" > variables.en
+
+        #echo "Creating release version ${{ github.event.inputs.release_version }}"
+          # Add release creation steps here

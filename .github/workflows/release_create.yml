@@ -37,6 +37,8 @@ jobs:
           echo "RELEASED_TAG=${RELEASED_TAG}"
           set +x
           echo "RELEASED_TAG=${RELEASED_TAG}" > variables.en
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
         #echo "Creating release version ${{ github.event.inputs.release_version }}"
           # Add release creation steps here

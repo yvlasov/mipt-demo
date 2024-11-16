@@ -1,7 +1,8 @@
 { 
   "semantic_release": { 
-    "remote": { 
-      "type": "gitlab"
+    "remote": {
+      "type": "github",
+      "token": { "env": "CUSTOM_GH_TOKEN" }
     },
     "tag_format": "v{version}",
     "changelog": {

@@ -39,11 +39,12 @@ jobs:
           git log -n 5 --decorate
           echo "Releasing a new version..."
           set -x
-          semantic-release --config package.json -vv version --no-vcs-release --skip-build
+          # Creating TAG and CHANGELOG no-vcs-release because GitHub needs time to create tag
+          semantic-release --config package.json version --no-vcs-release --skip-build
           TAG_TO_RELEAE=$(semantic-release --config package.json  version --print-tag)
           echo "TAG_TO_RELEAE=${TAG_TO_RELEAE}"
-          git log -n 5 --decorate
-          semantic-release --config package.json -vv changelog --post-to-release-tag ${TAG_TO_RELEAE}
+          # And now when GitHub has enought time to realaise TAG was created we can release this tag
+          semantic-release --config package.json changelog --post-to-release-tag ${TAG_TO_RELEAE}
           set +x
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

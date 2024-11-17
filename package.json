@@ -67,6 +67,7 @@
       "remote": {
           "name": "origin",
           "type": "github",
+          "token": { "env": "GITHUB_TOKEN" },
           "ignore_token_for_push": false,
           "insecure": false
       },

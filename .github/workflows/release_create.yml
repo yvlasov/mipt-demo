@@ -43,12 +43,25 @@ jobs:
             -H "Authorization: Bearer ${{secrets.GITHUB_TOKEN}}" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             https://api.github.com/repos/yvlasov/mipt-demo/releases
+          curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{secrets.GITHUB_TOKEN}}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/yvlasov/mipt-demo/releases \
+            -d '{"tag_name":"v4.0.2","target_commitish":"main","name":"v4.0.2","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":false}'
+          curl -L \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{secrets.GITHUB_TOKEN}}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/yvlasov/mipt-demo/releases
           set -x
-          semantic-release --config package.json -vv version --skip-build
-          RELEASED_TAG=$(semantic-release --config package.json  version --print-last-released-tag)
-          echo "RELEASED_TAG=${RELEASED_TAG}"
+          semantic-release --config package.json -vv version --no-vcs-release --skip-build
+          TAG_TO_RELEAE=$(semantic-release --config package.json  version --print-tag)
+          echo "TAG_TO_RELEAE=${TAG_TO_RELEAE}"
+          semantic-release  --config package.json publish --tag ${TAG_TO_RELEAE}
           set +x
-          echo "RELEASED_TAG=${RELEASED_TAG}" > variables.en
+          echo "TAG_TO_RELEAE=${TAG_TO_RELEAE}" > variables.en
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

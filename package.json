@@ -10,7 +10,6 @@
       },
       "build_command_env": [],
       "changelog": {
-          "changelog_file": "",
           "default_templates": {
               "changelog_file": "CHANGELOG.md",
               "output_format": "md"

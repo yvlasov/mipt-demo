@@ -43,7 +43,7 @@ jobs:
           TAG_TO_RELEAE=$(semantic-release --config package.json  version --print-tag)
           echo "TAG_TO_RELEAE=${TAG_TO_RELEAE}"
           git log -n 5 --decorate
-          semantic-release --config package.json -vv publish --tag ${TAG_TO_RELEAE}
+          semantic-release --config package.json -vv changelog --post-to-release-tag ${TAG_TO_RELEAE}
           set +x
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

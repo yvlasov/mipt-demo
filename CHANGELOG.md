@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v4.0.6 (2024-11-17)
+
+### Bug Fixes
+
+- Fixing release wf try 05
+  ([`c880b7a`](https://github.com/yvlasov/mipt-demo/commit/c880b7a994ba667ffa4dcbfd730fb41fa9c7afb4))
+
+
 ## v4.0.5 (2024-11-17)
 
 ### Bug Fixes
